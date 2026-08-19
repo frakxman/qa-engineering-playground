@@ -22,6 +22,40 @@ Ensure that integrated components communicate correctly and exchange data as exp
 
 ---
 
+# Automation Perspective
+
+Integration Testing can be automated to validate communication between different parts of a system.
+
+Because integration tests involve multiple components, they usually require more configuration than unit tests, such as:
+
+- Test databases.
+- API environments.
+- External service simulations.
+- Test data management.
+
+Automation at this level helps teams verify that components continue working correctly together as the application evolves.
+
+Common automated scenarios include:
+
+- Frontend and API communication.
+- API and database interaction.
+- Service-to-service communication.
+- Authentication flows.
+
+Example workflow:
+
+Code Change
+↓
+Integration Tests Execute
+↓
+Components Validation
+↓
+Test Report
+↓
+CI Pipeline Decision
+
+---
+
 # Examples
 
 Examples include:

@@ -27,6 +27,33 @@ Unit tests help developers detect defects early before they affect other parts o
 
 ---
 
+# Automation Perspective
+
+Unit Testing is one of the most automated levels of software testing.
+
+Because unit tests validate isolated pieces of code, they are usually the easiest tests to automate and execute frequently during development and Continuous Integration (CI).
+
+Automation at this level provides:
+
+- Fast feedback to developers.
+- Early defect detection.
+- Confidence during code changes.
+- Continuous validation of business logic.
+
+Unit tests are commonly executed automatically on every code change through CI pipelines.
+
+Example workflow:
+
+Developer changes code
+↓
+Unit Tests execute automatically
+↓
+Results reported
+↓
+Build continues or fails
+
+---
+
 # What Should Be Tested?
 
 Examples include:

@@ -122,7 +122,30 @@ Deliverables:
 
 ---
 
-# 6. Defect Reporting
+# 6. Automation Testing Process
+
+Automation Testing follows the same testing lifecycle but introduces additional engineering activities required to create and maintain automated tests.
+
+Typical automation workflow:
+
+Test Analysis
+↓
+Identify Automation Candidates
+↓
+Select Automation Approach
+↓
+Design Automated Tests
+↓
+Develop Test Scripts
+↓
+Execute Automated Tests
+↓
+Analyze Results
+↓
+Maintain Automation Suite
+
+
+# 7. Defect Reporting
 
 Document software defects.
 
@@ -140,7 +163,7 @@ Deliverables:
 
 ---
 
-# 7. Regression Testing
+# 8. Regression Testing
 
 After defects are fixed, previously working functionality must be tested again.
 
@@ -152,7 +175,7 @@ Purpose:
 
 ---
 
-# 8. Test Closure
+# 9. Test Closure
 
 The testing process is completed.
 

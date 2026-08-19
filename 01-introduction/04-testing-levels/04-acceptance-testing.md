@@ -27,6 +27,43 @@ The main question answered by Acceptance Testing is:
 
 ---
 
+# Automation Perspective
+
+Acceptance Testing can be automated when business scenarios are stable, repeatable, and critical for the product.
+
+Automated acceptance tests validate that the system continues to satisfy business requirements after changes are introduced.
+
+Automation at this level is useful for:
+
+- Critical user journeys.
+- Business validation scenarios.
+- Regression of accepted features.
+- Release confidence.
+
+Common automated scenarios include:
+
+- User registration.
+- Purchasing products.
+- Processing payments.
+- Completing important business workflows.
+
+Example workflow:
+
+Business Requirement
+↓
+Acceptance Criteria
+↓
+Automated Acceptance Test
+↓
+Validation Result
+↓
+Release Decision
+
+
+Acceptance automation should focus on valuable business scenarios and should not replace exploratory testing or human validation.
+
+---
+
 # Who Performs Acceptance Testing?
 
 Acceptance Testing may be performed by:

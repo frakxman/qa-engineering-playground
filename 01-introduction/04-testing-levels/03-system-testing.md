@@ -23,6 +23,41 @@ Validate the behavior of the complete software system before it is released to u
 
 ---
 
+# Automation Perspective
+
+System Testing is commonly automated to validate complete user workflows and critical business scenarios.
+
+Because these tests simulate real user behavior, they usually have higher complexity and maintenance costs compared with lower testing levels.
+
+Automation at this level is useful for:
+
+- Regression testing.
+- Critical business flows.
+- End-to-end validation.
+- Release confidence.
+
+Common automated scenarios include:
+
+- User registration.
+- Login and authentication.
+- Shopping workflows.
+- Payment processes.
+- Complete application journeys.
+
+Example workflow:
+
+User Action
+↓
+Application Flow
+↓
+Automated Validation
+↓
+Test Report
+↓
+Release Decision
+
+---
+
 # Examples
 
 Examples include:
