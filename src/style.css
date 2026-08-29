@@ -146,7 +146,8 @@ a {
     color 0.15s ease;
 }
 
-.sidebar nav a:hover {
+.sidebar nav a:hover,
+.sidebar nav a.router-link-active {
   background: var(--surface-hover);
   color: var(--text);
 }
@@ -224,6 +225,121 @@ a {
   line-height: 1.6;
   color: var(--text-muted);
 }
+
+/* Labs */
+
+.lab-card {
+  max-width: 640px;
+
+  margin-top: 48px;
+  padding: 28px;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  background: var(--bg);
+}
+
+.lab-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 28px;
+}
+
+.lab-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.lab-status {
+  padding: 5px 9px;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.lab-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lab-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.lab-card input,
+.lab-card select {
+  width: 100%;
+
+  padding: 10px 12px;
+
+  border: 1px solid var(--border);
+  border-radius: 5px;
+
+  background: var(--bg);
+  color: var(--text);
+
+  font-size: 14px;
+
+  outline: none;
+}
+
+.lab-card input:focus,
+.lab-card select:focus {
+  border-color: var(--text);
+}
+
+.lab-card button {
+  align-self: flex-start;
+
+  padding: 10px 16px;
+
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+
+  background: var(--accent);
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.lab-card button:hover {
+  opacity: 0.85;
+}
+
+.lab-feedback {
+  margin: 20px 0 0;
+  padding: 12px 14px;
+
+  border-left: 3px solid var(--text);
+
+  background: var(--surface);
+
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
 
 /* Responsive */
 
