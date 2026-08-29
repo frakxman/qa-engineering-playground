@@ -1,13 +1,12 @@
+<script setup lang="ts">
+import PlaygroundHeader from './components/PlaygroundHeader.vue'
+import PlaygroundSidebar from './components/PlaygroundSidebar.vue'
+
+</script>
+
 <template>
   <div class="playground">
-    <header class="playground-header">
-      <div>
-        <span class="eyebrow">QA ENGINEERING</span>
-        <h1>QA Engineering Playground</h1>
-      </div>
-
-      <span class="status">Learning in progress</span>
-    </header>
+    <PlaygroundHeader />
 
     <div class="playground-body">
       <aside class="sidebar">
