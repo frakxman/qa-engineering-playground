@@ -327,6 +327,27 @@ a {
   opacity: 0.85;
 }
 
+.lab-card .secondary-button {
+  border-color: var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.lab-card .secondary-button:hover {
+  background: var(--surface-hover);
+  opacity: 1;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-actions button {
+  align-self: auto;
+}
+
 .lab-feedback {
   margin: 20px 0 0;
   padding: 12px 14px;
@@ -340,6 +361,105 @@ a {
   color: var(--text-muted);
 }
 
+/* Test scenarios */
+
+.test-scenarios {
+  max-width: 640px;
+
+  margin-top: 40px;
+}
+
+.test-scenarios-header {
+  margin-bottom: 16px;
+}
+
+.test-scenarios ul {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  border-top: 1px solid var(--border);
+}
+
+.test-scenarios li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 12px;
+
+  padding: 18px 0;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.test-scenarios li > span {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.test-scenarios strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.scenario-type {
+  display: inline-block;
+
+  margin-bottom: 8px;
+  padding: 3px 7px;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.scenario-result {
+  display: inline-block;
+
+  margin-left: 8px;
+  padding: 3px 7px;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.scenario-result.passed {
+  border-color: #b7d8c0;
+  background: #f0f8f2;
+  color: #28663a;
+}
+
+.scenario-result.failed {
+  border-color: #e2b8b8;
+  background: #fdf2f2;
+  color: #8a3030;
+}
+
+.test-scenarios p {
+  margin: 0;
+
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
 
 /* Responsive */
 

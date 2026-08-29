@@ -12,8 +12,44 @@ const submitLogin = () => {
       ? 'success'
       : 'failure'
 }
-</script>
 
+const resetForm = () => {
+  username.value = ''
+  password.value = ''
+  loginResult.value = null
+}
+
+const scenarioResults = [
+  {
+    id: '01',
+    name: 'Valid credentials',
+    type: 'Positive',
+    input: 'qa.engineer / password123',
+    expected: 'Login successful',
+  },
+  {
+    id: '02',
+    name: 'Invalid password',
+    type: 'Negative',
+    input: 'qa.engineer / wrongpassword',
+    expected: 'Invalid username or password',
+  },
+  {
+    id: '03',
+    name: 'Invalid username',
+    type: 'Negative',
+    input: 'unknown.user / password123',
+    expected: 'Invalid username or password',
+  },
+  {
+    id: '04',
+    name: 'Empty credentials',
+    type: 'Negative',
+    input: 'Empty username / Empty password',
+    expected: 'Invalid username or password',
+  },
+]
+</script>
 
 <template>
   <main class="content">
@@ -55,65 +91,61 @@ const submitLogin = () => {
           />
         </label>
 
-        <button type="submit">
-          Sign in
-        </button>
+        <div class="form-actions">
+          <button type="submit">
+            Sign in
+          </button>
+
+          <button
+            type="button"
+            class="secondary-button"
+            @click="resetForm"
+          >
+            Reset
+          </button>
+        </div>
       </form>
 
       <p v-if="loginResult === 'success'" class="lab-feedback">
         Login successful.
       </p>
-      
+
       <p v-else-if="loginResult === 'failure'" class="lab-feedback">
         Invalid username or password.
       </p>
     </section>
+
     <section class="test-scenarios">
-        <div class="test-scenarios-header">
-            <span class="lab-label">TEST SCENARIOS</span>
-        </div>
+      <div class="test-scenarios-header">
+        <span class="lab-label">TEST SCENARIOS</span>
+      </div>
 
-        <ul>
-            <li>
-            <span>01</span>
-            <div>
-                <strong>Valid credentials</strong>
-                <p>
-                qa.engineer / password123 should authenticate successfully.
-                </p>
-            </div>
-            </li>
+      <ul>
+        <li
+          v-for="scenario in scenarioResults"
+          :key="scenario.id"
+        >
+          <span>{{ scenario.id }}</span>
 
-            <li>
-            <span>02</span>
-            <div>
-                <strong>Invalid password</strong>
-                <p>
-                A valid username with an incorrect password should be rejected.
-                </p>
-            </div>
-            </li>
+          <div>
+            <span class="scenario-type">
+              {{ scenario.type }}
+            </span>
 
-            <li>
-            <span>03</span>
-            <div>
-                <strong>Invalid username</strong>
-                <p>
-                An unknown username should be rejected.
-                </p>
-            </div>
-            </li>
+            <strong>{{ scenario.name }}</strong>
 
-            <li>
-            <span>04</span>
-            <div>
-                <strong>Empty credentials</strong>
-                <p>
-                Submitting the form without credentials should not authenticate.
-                </p>
-            </div>
-            </li>
-        </ul>
+            <p>
+              Input:
+              <code>{{ scenario.input }}</code>
+            </p>
+
+            <p>
+              Expected:
+              <code>{{ scenario.expected }}</code>
+            </p>
+          </div>
+        </li>
+      </ul>
     </section>
   </main>
 </template>
