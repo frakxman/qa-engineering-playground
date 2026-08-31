@@ -1,25 +1,48 @@
+<script setup lang="ts">
+const roadmapItems = [
+  { number: '01', title: 'Introduction', slug: 'introduction' },
+  { number: '02', title: 'Test Design', slug: 'test-design' },
+  { number: '03', title: 'API Testing', slug: 'api-testing' },
+  { number: '04', title: 'Postman', slug: 'postman' },
+  { number: '05', title: 'Cypress', slug: 'cypress' },
+  { number: '06', title: 'Playwright', slug: 'playwright' },
+  { number: '07', title: 'Performance', slug: 'performance' },
+  { number: '08', title: 'Accessibility', slug: 'accessibility' },
+  { number: '09', title: 'Test Reports', slug: 'test-reports' },
+  { number: '10', title: 'CI/CD Testing', slug: 'ci-cd-testing' },
+]
+
+const labItems = [
+  { title: 'Authentication', slug: 'authentication' },
+  { title: 'Automation', slug: 'automation' },
+]
+
+</script>
+
 <template>
   <aside class="sidebar">
     <span class="sidebar-title">Learning Roadmap</span>
 
     <nav>
-      <a href="#">01 Introduction</a>
-      <a href="#">02 Test Design</a>
-      <a href="#">03 API Testing</a>
-      <a href="#">04 Postman</a>
-      <a href="#">05 Cypress</a>
-      <a href="#">06 Playwright</a>
-      <a href="#">07 Performance</a>
-      <a href="#">08 Accessibility</a>
-      <a href="#">09 Test Reports</a>
-      <a href="#">10 CI/CD Testing</a>
+      <RouterLink
+        v-for="item in roadmapItems"
+        :key="item.slug"
+        :to="`/${item.slug}`"
+      >
+        {{ item.number }} {{ item.title }}
+      </RouterLink>
     </nav>
 
     <span class="sidebar-title labs-title">Labs</span>
 
     <nav>
-      <a href="#">Authentication</a>
-      <a href="#">Automation</a>
+      <RouterLink
+        v-for="item in labItems"
+        :key="item.slug"
+        :to="`/${item.slug}`"
+      >
+        {{ item.title }}
+      </RouterLink>
     </nav>
   </aside>
 </template>
