@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import '../styles/TestDesignView.css'
+
 
 const age = ref<number | null>(25)
 const evaluated = ref(false)
 
 const boundaryValue = ref<number | null>(18)
 const boundaryEvaluated = ref(false)
+
+const usernameValid = ref(true)
+const passwordValid = ref(true)
+const accountState = ref<'active' | 'locked' | 'inactive'>('active')
+const decisionEvaluated = ref(false)
 
 const partition = computed(() => {
   if (age.value === null) {
@@ -100,9 +107,88 @@ const boundaryResult = computed(() => {
   return {
     name: 'Inside Range',
     range: '20–64',
-    description: 'This value is inside the valid range but not directly adjacent to a boundary.',
+    description:
+      'This value is inside the valid range but not directly adjacent to a boundary.',
     className: 'passed',
   }
+})
+
+const decisionRules = [
+  {
+    id: 1,
+    username: true,
+    password: true,
+    account: 'active',
+    result: 'Access granted',
+    className: 'passed',
+    explanation:
+      'All three conditions are satisfied. The credentials are valid and the account is active, so access is granted.',
+  },
+  {
+    id: 2,
+    username: true,
+    password: true,
+    account: 'locked',
+    result: 'Access denied',
+    className: 'failed',
+    explanation:
+      'The credentials are valid, but the account is locked. Account state prevents access.',
+  },
+  {
+    id: 3,
+    username: true,
+    password: false,
+    account: 'active',
+    result: 'Access denied',
+    className: 'failed',
+    explanation:
+      'The username is valid and the account is active, but the password is invalid. Access is denied.',
+  },
+  {
+    id: 4,
+    username: false,
+    password: true,
+    account: 'active',
+    result: 'Access denied',
+    className: 'failed',
+    explanation:
+      'The password is valid and the account is active, but the username is invalid. Access is denied.',
+  },
+  {
+    id: 5,
+    username: false,
+    password: false,
+    account: 'active',
+    result: 'Access denied',
+    className: 'failed',
+    explanation:
+      'Neither credential is valid. The account is active, but invalid credentials prevent access.',
+  },
+  {
+    id: 6,
+    username: true,
+    password: true,
+    account: 'inactive',
+    result: 'Access denied',
+    className: 'failed',
+    explanation:
+      'The credentials are valid, but the account is inactive. Account state prevents access.',
+  },
+]
+
+const matchingDecisionRule = computed(() => {
+  if (!decisionEvaluated.value) {
+    return null
+  }
+
+  return (
+    decisionRules.find(
+      (rule) =>
+        rule.username === usernameValid.value &&
+        rule.password === passwordValid.value &&
+        rule.account === accountState.value,
+    ) ?? null
+  )
 })
 
 function evaluateAge() {
@@ -122,6 +208,17 @@ function resetBoundaryExperiment() {
   boundaryValue.value = 18
   boundaryEvaluated.value = false
 }
+
+function evaluateDecisionTable() {
+  decisionEvaluated.value = true
+}
+
+function resetDecisionTable() {
+  usernameValid.value = true
+  passwordValid.value = true
+  accountState.value = 'active'
+  decisionEvaluated.value = false
+}
 </script>
 
 <template>
@@ -140,16 +237,17 @@ function resetBoundaryExperiment() {
     <section class="test-design-section">
       <div class="section-heading">
         <span class="section-label">TECHNIQUES</span>
+
         <span class="section-description">
           Foundations for test design
         </span>
       </div>
 
       <div class="principles technique-grid">
-        <article class="technique-card technique-card-active">
+        <article class="technique-card technique-card-complete">
           <div class="technique-card-top">
             <span>01</span>
-            <span class="technique-status">Current</span>
+            <span class="technique-status">Complete</span>
           </div>
 
           <h3>Equivalence Partitioning</h3>
@@ -160,10 +258,10 @@ function resetBoundaryExperiment() {
           </p>
         </article>
 
-        <article class="technique-card technique-card-active">
+        <article class="technique-card technique-card-complete">
           <div class="technique-card-top">
             <span>02</span>
-            <span class="technique-status">Current</span>
+            <span class="technique-status">Complete</span>
           </div>
 
           <h3>Boundary Value Analysis</h3>
@@ -174,10 +272,10 @@ function resetBoundaryExperiment() {
           </p>
         </article>
 
-        <article class="technique-card">
+        <article class="technique-card technique-card-active">
           <div class="technique-card-top">
             <span>03</span>
-            <span class="technique-status">Next</span>
+            <span class="technique-status">Current</span>
           </div>
 
           <h3>Decision Tables</h3>
@@ -195,6 +293,7 @@ function resetBoundaryExperiment() {
     <section class="test-design-section practice-section">
       <div class="section-heading">
         <span class="section-label">PRACTICE</span>
+
         <span class="section-description">
           Experiment 01 · Equivalence Partitioning
         </span>
@@ -488,6 +587,259 @@ function resetBoundaryExperiment() {
       </div>
     </section>
 
+    <!-- Experiment 03 -->
+
+    <section class="test-design-section practice-section">
+      <div class="section-heading">
+        <span class="section-label">PRACTICE</span>
+
+        <span class="section-description">
+          Experiment 03 · Decision Table Testing
+        </span>
+      </div>
+
+      <div class="experiment decision-table-experiment">
+        <div class="experiment-header">
+          <div>
+            <span class="lab-label">EXPERIMENT 03</span>
+
+            <h3>Login Access Rules</h3>
+          </div>
+
+          <span class="lab-status">Interactive</span>
+        </div>
+
+        <div class="requirement">
+          <span class="experiment-label">REQUIREMENT</span>
+
+          <p>
+            A user can access the application when the
+            <strong>username is valid</strong>,
+            the <strong>password is valid</strong>,
+            and the <strong>account is active</strong>.
+          </p>
+        </div>
+
+        <div class="decision-learning">
+          <div class="experiment-heading">
+            <span class="experiment-label">
+              HOW IT WORKS
+            </span>
+
+            <p>
+              Decision tables help testers cover combinations of
+              conditions and verify that each combination produces the
+              correct business outcome.
+            </p>
+          </div>
+
+          <div class="decision-steps">
+            <div class="decision-step">
+              <span>01</span>
+              <strong>Set conditions</strong>
+              <p>Choose the state of each login condition.</p>
+            </div>
+
+            <div class="decision-step">
+              <span>02</span>
+              <strong>Evaluate</strong>
+              <p>Find the rule that matches all three conditions.</p>
+            </div>
+
+            <div class="decision-step">
+              <span>03</span>
+              <strong>Verify outcome</strong>
+              <p>Compare the expected result with the business rule.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="decision-controls">
+          <div class="experiment-heading">
+            <span class="experiment-label">
+              TEST CONDITIONS
+            </span>
+
+            <p>
+              Configure a combination, then evaluate it against the
+              decision table.
+            </p>
+          </div>
+
+          <form
+            class="decision-form"
+            @submit.prevent="evaluateDecisionTable"
+          >
+            <label class="decision-control">
+              <span class="experiment-label">
+                USERNAME
+              </span>
+
+              <select v-model="usernameValid">
+                <option :value="true">Valid</option>
+                <option :value="false">Invalid</option>
+              </select>
+            </label>
+
+            <label class="decision-control">
+              <span class="experiment-label">
+                PASSWORD
+              </span>
+
+              <select v-model="passwordValid">
+                <option :value="true">Valid</option>
+                <option :value="false">Invalid</option>
+              </select>
+            </label>
+
+            <label class="decision-control">
+              <span class="experiment-label">
+                ACCOUNT
+              </span>
+
+              <select v-model="accountState">
+                <option value="active">Active</option>
+                <option value="locked">Locked</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </label>
+
+            <div class="form-actions">
+              <button type="submit">
+                Evaluate
+              </button>
+
+              <button
+                type="button"
+                class="secondary-button"
+                @click="resetDecisionTable"
+              >
+                Reset
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="decision-table-section">
+          <div class="experiment-heading">
+            <span class="experiment-label">
+              DECISION TABLE
+            </span>
+
+            <p>
+              Each row represents one combination of conditions and its
+              expected system behavior.
+            </p>
+          </div>
+
+          <div class="decision-table-wrapper">
+            <table class="decision-table">
+              <thead>
+                <tr>
+                  <th>Rule</th>
+                  <th>Username</th>
+                  <th>Password</th>
+                  <th>Account</th>
+                  <th>Expected Result</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  v-for="rule in decisionRules"
+                  :key="rule.id"
+                  :class="{
+                    'decision-rule-match':
+                      matchingDecisionRule?.id === rule.id,
+                  }"
+                >
+                  <td>
+                    <span class="rule-number">
+                      {{ String(rule.id).padStart(2, '0') }}
+                    </span>
+
+                    <span
+                      v-if="matchingDecisionRule?.id === rule.id"
+                      class="match-badge"
+                    >
+                      MATCH
+                    </span>
+                  </td>
+
+                  <td>
+                    <span
+                      class="condition-value"
+                      :class="rule.username ? 'condition-true' : 'condition-false'"
+                    >
+                      {{ rule.username ? 'Valid' : 'Invalid' }}
+                    </span>
+                  </td>
+
+                  <td>
+                    <span
+                      class="condition-value"
+                      :class="rule.password ? 'condition-true' : 'condition-false'"
+                    >
+                      {{ rule.password ? 'Valid' : 'Invalid' }}
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="condition-value condition-account">
+                      {{ rule.account }}
+                    </span>
+                  </td>
+
+                  <td>
+                    <span
+                      class="decision-result"
+                      :class="rule.className"
+                    >
+                      {{ rule.result }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div
+          v-if="decisionEvaluated && matchingDecisionRule"
+          class="experiment-result decision-result-panel"
+          :class="matchingDecisionRule.className"
+        >
+          <div>
+            <span class="experiment-label">MATCHING RULE</span>
+
+            <p class="result-summary">
+              Rule
+              <strong>
+                {{ String(matchingDecisionRule.id).padStart(2, '0') }}
+              </strong>
+              matches the selected conditions.
+
+              <span class="scenario-result">
+                {{ matchingDecisionRule.result }}
+              </span>
+            </p>
+          </div>
+
+          <div class="result-details">
+            <span>WHY THIS RULE?</span>
+
+            <strong>
+              {{ matchingDecisionRule.result }}
+            </strong>
+
+            <p>
+              {{ matchingDecisionRule.explanation }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Engineering Note -->
 
     <section class="engineering-note">
@@ -497,17 +849,18 @@ function resetBoundaryExperiment() {
         </span>
 
         <h3>
-          Why are boundaries so important?
+          Why use decision tables?
         </h3>
       </div>
 
       <p>
-        Boundary Value Analysis is effective because defects frequently
-        occur at the edges of input ranges. Instead of testing many
-        values throughout the range, we focus on the boundary itself
-        and the values immediately before and after it. For the
-        requirement of 18–65, useful tests include 17, 18, 19, 64,
-        65, and 66.
+        Decision tables are useful when system behavior depends on
+        combinations of conditions. Instead of writing isolated tests
+        and potentially missing an important combination, testers
+        identify the relevant conditions, enumerate meaningful rules,
+        and verify the expected outcome for each rule. This is
+        especially valuable for authentication, permissions,
+        pricing, eligibility, and other rule-driven systems.
       </p>
     </section>
   </main>
